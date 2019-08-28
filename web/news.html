@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="./js/jquery-3.0.0.js"></script>
+    <title>查询信息</title>
+</head>
+<body>
+<div align="center">
+    <div>员工工号：<input width="70px" id="code">
+    <button onclick="seacher()">查询</button></div>
+    <div>员工信息：
+    <table border="1px">
+        <tr>
+            <th>工号</th><th>姓名</th><th>所在部门</th>
+        </tr>
+        <tr>
+            <td id="1"></td>
+            <td id="2"></td>
+            <td id="3"></td>
+        </tr>
+    </table>
+    </div>
+</div>
+</body>
+<script>
+    function seacher() {
+        // alert(1);
+        $(document).ready(function() {
+            // alert(2);
+            var code=document.getElementById('code').value;
+             alert(code);
+            // var code = $("#code").val();
+            $.ajax({
+                type:"post", // 以get方式发起请求
+                url: "http://localhost:8080/search", // 将你的请求参数以问号拼接到url中进行参数传递
+                data:{"code":code},
+                datatype:"json",
+                success:function (data) {
+                        $("#1").html(data.usercode);
+                        $("#2").html(data.username);
+                        $("#3").html(data.department);
+
+                }
+            });
+        });
+    }
+</script>
+
+</html>
